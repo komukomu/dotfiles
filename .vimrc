@@ -1,11 +1,9 @@
-"-------------------------
+"--------------------------
 " vimrc
-"-------------------------
-
 "--------------------------
 " Start Neobundle Setting.
 "--------------------------
-
+"
 if has('vim_starting')
   if &compatible
     set nocompatible
@@ -42,6 +40,9 @@ set number         " 行番号表示
 set showtabline=4  " タブを常に表示
 set laststatus=2   " ステータスラインを常に表示
 set helplang=ja,en " ヘルプの日本語化プラグインの設定
+set encoding=utf-8 " 標準コード設定(UTF-8)
+set fileencodings=iso-2022.jp,cp932,sjis,euc-jp,utf-8 " 文字自動判別設定 
+
 
 call neobundle#end()
 
@@ -49,10 +50,10 @@ call neobundle#end()
 " End Neobundle Setting.
 "------------------------
 
-filetype plugin indent on
-filetype off	" ファイルタイプ関連無効化
+filetype plugin indent on " Required:
+filetype off	          " ファイルタイプ関連無効化
 
-syntax enable	" 色付け
+syntax enable	          " 色付け
 
 " 未インストールのプラグインがある時に、尋ねてくる
 NeoBundleCheck

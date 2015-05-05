@@ -54,7 +54,7 @@ source $ZSH/oh-my-zsh.sh
 setopt hist_reduce_blanks
 # 同じコマンドはヒストリに追加しない
 setopt hist_ignore_dups
-# 他のシェルヒストリを共有する
+# 同時起動時のシェルヒストリを共有する
 setopt share_history
 
 # User configuration
@@ -63,7 +63,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=ja_JP.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -76,7 +76,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export LSCOLORS=Exfxcxdxbxegedabagacad
 # 補完時の色の設定
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-# ZLS_COLORSとは？
 export ZLS_COLORS=$LS_COLORS
 # lsコマンド時、自動で色がつく
 export CLICOLOR=true
@@ -86,6 +85,7 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 ###################################
 # Prompt 
 ###################################
+#
 # プロンプトに色をつける
 autoload -U colors; colors
 
@@ -118,6 +118,9 @@ setopt print_eight_bit
 setopt pushd_ignore_dups
 # 補完候補が複数ある場合自動的に一覧表示する
 setopt auto_menu
+# cd省略
+setopt auto_cd
+
 
 # <Tab>で更に候補を選択可能
 zstyle ':completion:*default' menu select=1
@@ -134,7 +137,13 @@ alias -g L=' | less'      # less省略
 # ls
 alias la='ls -a'          #
 alias ll='ls -l'          #
+# rm
+alias rmf='rm -f '        # file削除
+alias rmr='rm -rf '       # directory削除
 # vim .~
 alias viz='vim .zshrc'    # .zshrc編集
 alias vim.='vim .vimrc'   # .vimrc編集
-
+# brew
+alias brewud='brew update'      # update
+alias brewug='brew upgrade'     # upgrade
+alias brewca='brew-cask update' # caskupdate
