@@ -41,19 +41,29 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git github)
 
 source $ZSH/oh-my-zsh.sh
-
 
 # ---------------------------------
 # History
 # ---------------------------------
 
+# ヒストリを保存するファイル
+HISTFILE=~/.zsh_history
+
+# 保存されるヒストリのメモリ制限
+HISTSIZE=1000000
+
+# 保存されるヒストリの件数
+SAVEHIST=$HISTSIZE
+
 # 余分なスペースを削除し保存する
 setopt hist_reduce_blanks
+
 # 同じコマンドはヒストリに追加しない
 setopt hist_ignore_dups
+
 # 同時起動時のシェルヒストリを共有する
 setopt share_history
 
@@ -147,17 +157,21 @@ zstyle ':completion:*default' menu select=1
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # global alias
-alias -g G=' | grep'      # grep省略
-alias -g L=' | less'      # less省略
+alias -g G=' | grep'
+alias -g L=' | less'
 # ls
 alias la='ls -a'
 alias ll='ls -l'
 # rm
-alias rmf='rm -f '        # file削除
-alias rmr='rm -rf '       # directory削除
+alias rf='rm -f '         # file削除
+alias rr='rm -rf '        # directory削除
 # vim .~
 alias viz='vim .zshrc'    # .zshrc編集
 alias vim.='vim .vimrc'   # .vimrc編集
+# brew
+alias bdoc='brew doctor'
+alias bud='brew update'
+alias bug='brew upgrade --all'
 
 # ----------------------------------
 # Other
