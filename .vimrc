@@ -77,8 +77,7 @@ call neobundle#end()
 " End Neobundle Setting.
 "------------------------
 
-filetype plugin indent on " Required
-:
+filetype plugin indent on " Required:
 syntax enable	          " 色付け
 
 " 未インストールのプラグインがある時に、尋ねてくる

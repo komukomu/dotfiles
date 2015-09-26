@@ -2,6 +2,9 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a radom theme each
+# time that oh-my-zsh is loaded.
 ZSH_THEME="dieter"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -16,7 +19,7 @@ ZSH_THEME="dieter"
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment the following line to disable auto-setting terminal title.
+# Uncomment the following line to disable auto-setting terminal title
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
@@ -66,8 +69,6 @@ setopt hist_ignore_dups
 
 # 同時起動時のシェルヒストリを共有する
 setopt share_history
-
-# User configuration
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin:/usr/local/sbin:$PATH
@@ -154,24 +155,29 @@ zstyle ':completion:*default' menu select=1
 # Alias
 # ---------------------------------
 
+alias rez='source .zshrc'
+
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 # global alias
 alias -g G=' | grep'
 alias -g L=' | less'
 # ls
-alias la='ls -a'
-alias ll='ls -l'
+alias la='ls -a'		# 隠しファイル表示
+alias ll='ls -l'		# 詳細一覧表示
+alias lss='ls -s'		# byteでsizeを表示
 # rm
-alias rf='rm -f '         # file削除
-alias rr='rm -rf '        # directory削除
+alias rf='rm -f '		# file削除
+alias rr='rm -rf '		# directory削除
+alias rrd='rm -rf .DS_Store'	# .DS_Store削除
 # vim .~
-alias viz='vim .zshrc'    # .zshrc編集
-alias vim.='vim .vimrc'   # .vimrc編集
+alias viz='vim .zshrc'		# .zshrc編集
+alias vim.='vim .vimrc'		# .vimrc編集
 # brew
-alias bdoc='brew doctor'
-alias bud='brew update'
-alias bug='brew upgrade --all'
+alias bdoc='brew doctor'	
+alias bud='brew update'		
+alias bug='brew upgrade --all'	
 
 # ----------------------------------
 # Other
