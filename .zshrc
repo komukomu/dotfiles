@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a radom theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="dieter"
+ZSH_THEM="amuse"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -35,7 +35,7 @@ ZSH_THEME="dieter"
 
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="mm/dd/yyyy"
+#HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -53,7 +53,11 @@ source $ZSH/oh-my-zsh.sh
 # ---------------------------------
 
 # ヒストリを保存するファイル
+#HISTFILE=~/.dots/zsh/.zsh_history
 HISTFILE=~/.zsh_history
+autoload -U compinit
+compinit -d ~/.zcompdump
+#compinit -d ~/.dots/zsh/.zcompdump
 
 # 保存されるヒストリのメモリ制限
 HISTSIZE=1000000
@@ -112,10 +116,10 @@ tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_co
 
 # rootユーザ時(太字にし、アンダーバーをつける)
 if [ ${UID} -eq 0 ]; then
-  tmp_prompt="%B%U${tmp_prompt}%u%b"
-  tmp_prompt2="%B%U${tmp_prompt2}%u%b"
-  tmp_rprompt="%B%U${tmp_rprompt}%u%b"
-  tmp_sprompt="%B%U${tmp_sprompt}%u%b"
+    tmp_prompt="%B%U${tmp_prompt}%u%b"
+    tmp_prompt2="%B%U${tmp_prompt2}%u%b"
+    tmp_rprompt="%B%U${tmp_rprompt}%u%b"
+    tmp_sprompt="%B%U${tmp_sprompt}%u%b"
 fi
 
 PROMPT=$tmp_prompt    # 通常のプロンプト
@@ -136,14 +140,14 @@ setopt pushd_ignore_dups
 # 補完候補が複数ある場合自動的に一覧表示する
 setopt auto_menu
 
-# ディレクトリ名だけでcd 可能にする
+# ディレクトリ名だけで移動
 setopt auto_cd
 
 # 入力しているコマンド名が間違っている場合に候補を出す
 setopt correct
 
-# ビープを鳴らさない
-setopt nobeep
+# ビープ音停止
+setopt no_beep
 
 # 色を使う
 setopt prompt_subst
