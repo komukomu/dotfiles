@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a radom theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEM="amuse"
+export ZSH_THEME="fishy"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -35,7 +35,7 @@ ZSH_THEM="amuse"
 
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-#HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -44,9 +44,36 @@ ZSH_THEM="amuse"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git github)
+plugins=(git github osx brew brew-cask)
 
 source $ZSH/oh-my-zsh.sh
+
+# ---------------------------------
+# Prompt
+# ---------------------------------
+
+# プロンプトに色をつける
+#autoload -U colors; colors
+
+### 一般ユーザ時 ###
+#tmp_prompt="%{${fg[cyan]}%}%n%# %{${reset_color}%}"
+#tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
+#tmp_rprompt="%{${fg[green]}%}[%~]%{${reset_color}%}"
+#tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
+
+# rootユーザ時(太字にし、アンダーバーをつける)
+#if [ ${UID} -eq 0 ]; then
+#    tmp_prompt="%B%U${tmp_prompt}%u%b"
+#    tmp_prompt2="%B%U${tmp_prompt2}%u%b"
+#    tmp_rprompt="%B%U${tmp_rprompt}%u%b"
+#    tmp_sprompt="%B%U${tmp_sprompt}%u%b"
+#fi
+
+#PROMPT=$tmp_prompt    # 通常のプロンプト
+#PROMPT2=$tmp_prompt2  # コマンドが2行以上の時に表示される)
+#RPROMPT=$tmp_rprompt  # 右側のプロンプト
+#SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
+
 
 # ---------------------------------
 # History
@@ -81,19 +108,17 @@ export PATH=$HOME/bin:/usr/local/sbin:$PATH
 # You may need to manually set your language environment
 export LANG=ja_JP.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fii
-
 ### Ls Color ####
 export LSCOLORS=Exfxcxdxbxegedabagacad
 
+
+# ---------------------------------
+# Complete
+# ---------------------------------
+
 # 補完時の色の設定
-export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-export ZLS_COLORS=$LS_COLORS
+#export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+#export ZLS_COLORS=$LS_COLORS
 
 # lsコマンド時、自動で色がつく
 export CLICOLOR=true
@@ -101,31 +126,6 @@ export CLICOLOR=true
 # 補完候補に色を付ける
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# ---------------------------------
-# Prompt 
-# ---------------------------------
-
-# プロンプトに色をつける
-autoload -U colors; colors
-
-### 一般ユーザ時 ###
-tmp_prompt="%{${fg[cyan]}%}%n%# %{${reset_color}%}"
-tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
-tmp_rprompt="%{${fg[green]}%}[%~]%{${reset_color}%}"
-tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
-
-# rootユーザ時(太字にし、アンダーバーをつける)
-if [ ${UID} -eq 0 ]; then
-    tmp_prompt="%B%U${tmp_prompt}%u%b"
-    tmp_prompt2="%B%U${tmp_prompt2}%u%b"
-    tmp_rprompt="%B%U${tmp_rprompt}%u%b"
-    tmp_sprompt="%B%U${tmp_sprompt}%u%b"
-fi
-
-PROMPT=$tmp_prompt    # 通常のプロンプト
-PROMPT2=$tmp_prompt2  # コマンドが2行以上の時に表示される)
-RPROMPT=$tmp_rprompt  # 右側のプロンプト
-SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 
 # --------------------------------
 # Option
@@ -179,9 +179,18 @@ alias rrd='rm -rf .DS_Store'	# .DS_Store削除
 alias viz='vim .zshrc'		# .zshrc編集
 alias vim.='vim .vimrc'		# .vimrc編集
 # brew
-alias bdoc='brew doctor'	
-alias bud='brew update'		
-alias bug='brew upgrade --all'	
+alias bdoc='brew doctor'
+alias bupd='brew update'
+alias bupg='brew upgrade --all'
+
+
+# ----------------------------------
+# Keybind
+# ----------------------------------
+
+# ^Rで履歴検索実行時にワイルドカードを使用可能にする
+bindkey '^R' history-incremental-pattern-search-backward
+
 
 # ----------------------------------
 # Other

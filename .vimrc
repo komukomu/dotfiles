@@ -1,39 +1,122 @@
 "--------------------------
 " vimrc
 "--------------------------
-" Start Neobundle Setting.
-"--------------------------
-"
+
+""" Start Neobundle Setting.
 if has('vim_starting')
   if &compatible
     set nocompatible
   endif
-
-  " bundleで管理するディレクトリを指定
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
-
 call neobundle#begin(expand('~/.vim/bundle/'))
-
-" neobundle.vim自身をneobundle.vimで管理する
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+"" Bundle
 " NERDTree設定
 NeoBundle 'scrooloose/nerdtree'
-" 自動的にとじ括弧挿入
-NeoBundle 'Townk/vim-autoclose'
 " シンタックスチェック
 NeoBundle 'scrooloose/syntastic'
+" Unite
+NeoBundle 'Shougo/unite.vim'
+" VimFiler
+NeoBundle 'Shougo/vimfiler'
+" vim-airline
+"NeoBundle 'bling/vim-airline'
+" lightline
+NeoBundle 'itchyny/lightline.vim'
+ let g:lightline = {
+         \ 'colorscheme': 'wombat',
+         \ 'mode_map': {'c': 'NORMAL'},
+         \ 'active': {
+         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+         \ },
+         \ 'component_function': {
+         \   'modified': 'LightLineModified',
+         \   'readonly': 'LightLineReadonly',
+         \   'fugitive': 'LightLineFugitive',
+         \   'filename': 'LightLineFilename',
+         \   'fileformat': 'LightLineFileformat',
+         \   'filetype': 'LightLineFiletype',
+         \   'fileencoding': 'LightLineFileencoding',
+         \   'mode': 'LightLineMode'
+         \ }
+         \ }
 
-" NNOREMAP
-nnoremap <silent><C-e> :NERDTreeToggle<CR> "NERDTreeショートカット
+ function! LightLineModified()
+     return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+ endfunction
+
+ function! LightLineReadonly()
+     return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+ endfunction
+
+ function! LightLineFilename()
+     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+	 \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+	 \  &ft == 'unite' ? unite#get_status_string() :
+	 \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+	 \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+ endfunction
+
+ function! LightLineFugitive()
+     try
+	 if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+	     return fugitive#head()
+	 endif
+     catch
+     endtry
+     return ''
+ endfunction
+
+ function! LightLineFileformat()
+     return winwidth(0) > 70 ? &fileformat : ''
+ endfunction
+
+ function! LightLineFiletype()
+     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+ endfunction
+
+ function! LightLineFileencoding()
+     return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+ endfunction
+
+ function! LightLineMode()
+     return winwidth(0) > 60 ? lightline#mode() : ''
+ endfunction
+
+" Markdown
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'tukiyo/previm'
+
+" QuickRun
+NeoBundleLazy 'git://github.com/thinca/vim-quickrun.git', {
+	    \ 'autoload':{
+	    \ 'commands': "QuickRun"
+	    \ }}
+
+"" Snippet
+" 補完
+NeoBundle 'Shougo/neocomplcache'
+" snippet補完
+NeoBundle 'Shougo/neosnippet'
+" 各種snippet
+NeoBundle 'Shougo/neosnippet-snippets'
+
+"" Nnoremap
+" NERDTree
+nnoremap <Silent><C-e> :NERDTreeToggle<CR>
 nnoremap <C-n> gt       "タブ間の移動
 nnoremap <C-p> gT       "タブを閉じる
 nnoremap <C-c> closetab "タブを閉じる
 
-"---------------------------
-" 環境設定関連
-"---------------------------
+" Ctrl+j, k, h, l でウインドウを移動
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
+"" Set
 " 新しい行のインデントを現在行と同じにする
 set autoindent
 " 行番号表示
@@ -51,7 +134,7 @@ set mouse=a
 " カーソルラインの強調表示
 set cursorline
 " カーソルが何行目の何列目に置かれているかを表示する
-set ruler
+"set ruler
 " 検索キーワードをハイライトしない
 set nohlsearch
 " 新しい行を作った時に高度な自動インデントを行う
@@ -68,19 +151,16 @@ set showmatch
 set helplang=ja,en
 " 標準コード設定(UTF-8)
 set encoding=utf-8
-" 文字自動判別設定
-set fileencodings=iso-2022.jp,cp932,sjis,euc-jp,utf-8 
+" 文字自動判設定
+set fileencodings=iso-2022.jp,cp932,sjis,euc-jp,utf-8
 
+""" End Neobundle Setting.
 call neobundle#end()
 
-"------------------------
-" End Neobundle Setting.
-"------------------------
-
-filetype plugin indent on " Required:
-syntax enable	          " 色付け
-
-" 未インストールのプラグインがある時に、尋ねてくる
+" 色付け
+syntax enable
+" Required:
+filetype plugin indent on
 NeoBundleCheck
 
 if !has('vim_starting')
