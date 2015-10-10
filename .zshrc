@@ -143,7 +143,7 @@ setopt auto_menu
 # ディレクトリ名だけで移動
 setopt auto_cd
 
-# 入力しているコマンド名が間違っている場合に候補を出す
+# 入力時のコマンドが異なる場合に候補を表示
 setopt correct
 
 # ビープ音停止
