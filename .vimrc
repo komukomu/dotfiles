@@ -2,7 +2,7 @@
 " vimrc
 "--------------------------
 
-""" Start Neobundle Setting.
+"" Start Neobundle Setting.
 if has('vim_starting')
   if &compatible
     set nocompatible
@@ -12,17 +12,17 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-"" Bundle
-" NERDTree設定
+"" add Plugin
+" NERDTree
 NeoBundle 'scrooloose/nerdtree'
-" シンタックスチェック
+" syntastic check
 NeoBundle 'scrooloose/syntastic'
 " Unite
 NeoBundle 'Shougo/unite.vim'
 " VimFiler
 NeoBundle 'Shougo/vimfiler'
-" vim-airline
-"NeoBundle 'bling/vim-airline'
+" コメントON/OFFを手軽に実行する
+NeoBundle 'tomtom/tcomment_vim'
 " lightline
 NeoBundle 'itchyny/lightline.vim'
  let g:lightline = {
@@ -128,7 +128,7 @@ set laststatus=2
 " backspaceで文字を削除可能
 set backspace=start,eol,indent
 " 特定のキーに行頭、行末に回りこみ移動
-set whichwrap=b,s,[,],,~
+set whichwrap=b,s,h,l,<,>,[,]
 " マウス機能有効化
 set mouse=a
 " カーソルラインの強調表示
@@ -141,10 +141,14 @@ set nohlsearch
 set smartindent
 " シフト移動幅
 set shiftwidth=4
-" ファイル内の<Tab>が対応する空白の数
+" 新しい行で自動インデントを行う
 set smarttab
-" 括弧の対応をハイライト
+" 対応する括弧を強調する
 set showmatch
+" backupを作らない
+set nobackup
+" undofile
+set undodir=~/vim/undo
 
 "---文字設定関連---
 " ヘルプの日本語化プラグインの設定
@@ -153,6 +157,7 @@ set helplang=ja,en
 set encoding=utf-8
 " 文字自動判設定
 set fileencodings=iso-2022.jp,cp932,sjis,euc-jp,utf-8
+
 
 """ End Neobundle Setting.
 call neobundle#end()

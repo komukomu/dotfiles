@@ -80,11 +80,9 @@ source $ZSH/oh-my-zsh.sh
 # ---------------------------------
 
 # ヒストリを保存するファイル
-#HISTFILE=~/.dots/zsh/.zsh_history
 HISTFILE=~/.zsh_history
 autoload -U compinit
 compinit -d ~/.zcompdump
-#compinit -d ~/.dots/zsh/.zcompdump
 
 # 保存されるヒストリのメモリ制限
 HISTSIZE=1000000
@@ -133,22 +131,16 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
-
 # 重複したディレクトリを追加しない
 setopt pushd_ignore_dups
-
 # 補完候補が複数ある場合自動的に一覧表示する
 setopt auto_menu
-
 # ディレクトリ名だけで移動
 setopt auto_cd
-
 # 入力時のコマンドが異なる場合に候補を表示
 setopt correct
-
 # ビープ音停止
 setopt no_beep
-
 # 色を使う
 setopt prompt_subst
 
@@ -178,6 +170,9 @@ alias rrd='rm -rf .DS_Store'	# .DS_Store削除
 # vim .~
 alias viz='vim .zshrc'		# .zshrc編集
 alias vim.='vim .vimrc'		# .vimrc編集
+# mac-vim
+alias vi='env LANG=ja_JP.UTF-8/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env_LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 # brew
 alias bdoc='brew doctor'
 alias bupd='brew update'
@@ -191,14 +186,17 @@ alias bupg='brew upgrade --all'
 # ^Rで履歴検索実行時にワイルドカードを使用可能にする
 bindkey '^R' history-incremental-pattern-search-backward
 
-
-# ----------------------------------
-# Other
-# ----------------------------------
-
 # 補完候補のメニュー選択で矢印キーの変わりにhjklで移動可能にする
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
+
+# ----------------------------------
+# Other
+# ----------------------------------
+
+# openni2
+export OPENNI2_INCLUDE=/usr/local/include/ni2
+export OPENNI2_REDIST=/usr/local/lib/ni2
